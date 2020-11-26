@@ -1,0 +1,30 @@
+job : devops-deploy-webapp 
+
+node { ("linux1")
+    stage("enabled") {
+        stage('deploy'){
+            sh "docker run -t -d --rm training/webapp:latest"
+            }
+        }
+    }
+
+   
+
+   job: devops-build-full-setup
+
+   node { ("linux1")
+    stage("enabled") {
+  if (params.REQUESTED_ACTION == "enabled") {
+    build job: 'devops-deploy-webapp'
+    print params.REQUESTED_ACTION
+  }
+}
+    stage("disabled") {
+  if (params.REQUESTED_ACTION == "disabled") {
+    
+    print params.REQUESTED_ACTION
+    sh "echo no need to perform other action."
+  }
+}
+
+}
