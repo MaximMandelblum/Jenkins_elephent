@@ -1,6 +1,6 @@
 node("linux1"){
         stage("Clone Kalandula Repo") {
-            sh 'git clone https://github.com/MaximMandelblum/kandula_assignment.git'
+            git clone 'https://github.com/MaximMandelblum/kandula_assignment.git'
     }
         stage('Building image') {
             customImage = docker.build("6037159/jenkins-test:My_Image_Build-${env.BUILD_ID}")
